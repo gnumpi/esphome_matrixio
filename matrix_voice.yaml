@@ -47,11 +47,6 @@ light:
           green:  0%
           blue:   0%
           white:  0%
-      - voice_assistant.start:
-          silence_detection: false
-    
-    on_turn_off:
-      - voice_assistant.stop:
 
 microphone:
   - platform: matrixio
@@ -73,4 +68,12 @@ voice_assistant:
         green:  0%
         brightness: 60%
   
+switch:
+  - platform: template
+    name: "Voice Control"
+    turn_on_action:
+      - voice_assistant.start:
+          silence_detection: false
     
+    turn_off_action:
+      - voice_assistant.stop:

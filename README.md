@@ -31,5 +31,40 @@ On raspberry pi:
     voice_esptool --chip esp32 --port /dev/ttyS0 --baud 1500000 --before default_reset --after hard_reset write_flash -u --flash_mode dio --flash_freq 40m --flash_size detect 0x000 firmware-factory.bin  
 
 
+## Configuration
+
+```yaml
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+spi:
+  clk_pin:  GPIO32
+  mosi_pin: GPIO33
+  miso_pin: GPIO21
+
+matrixio:
+  id: matrixio_dev
+  cs_pin: GPIO23
+
+light:
+  - platform: matrixio
+    name: everloop
+    id: everloop
+
+microphone:
+  - platform: matrixio
+    id: matrixio_mic
+
+speaker:
+  - platform: matrixio
+    id: matrixio_speaker
+    # [headphone,speakers], default: headphone 
+    audio_out: headphone
+    # 0..100, in percent, default: 80
+    volume: 90
 
 
+```

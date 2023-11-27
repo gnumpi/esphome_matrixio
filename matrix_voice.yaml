@@ -40,13 +40,6 @@ light:
   - platform: matrixio
     name: everloop
     id: everloop
-    on_turn_on:
-      - light.turn_on:
-          id: everloop
-          red:   20%
-          green:  0%
-          blue:   0%
-          white:  0%
 
 microphone:
   - platform: matrixio
@@ -55,6 +48,8 @@ microphone:
 speaker:
   - platform: matrixio
     id: matrixio_speaker_hp
+    audio_out: headphone
+    volume: 90
 
 voice_assistant:
   microphone: matrixio_mic
@@ -67,6 +62,9 @@ voice_assistant:
         red:    0%
         green:  0%
         brightness: 60%
+  on_end:
+    - light.turn_off:
+        id: everloop
   
 switch:
   - platform: template

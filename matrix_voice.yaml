@@ -48,7 +48,7 @@ microphone:
 speaker:
   - platform: matrixio
     id: matrixio_speaker_hp
-    # [headphone,speakers], default: headphone 
+    # [headphone,speakers], default: headphone
     audio_out: headphone
     # 0..100, in percent, default: 80
     volume: 90
@@ -161,13 +161,13 @@ switch:
       - script.execute: reset_led
     on_turn_off:
       - script.execute: reset_led
-  
+
   - platform: template
     name: "Start Listening"
     turn_on_action:
       - voice_assistant.start:
           silence_detection: false
-    
+
     turn_off_action:
       - voice_assistant.stop:
       - script.execute: reset_led

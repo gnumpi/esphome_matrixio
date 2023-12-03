@@ -18,7 +18,7 @@ repos:
     rev: 23.11.0
     hooks:
     -   id: black
-        files: ^((esphome|script|tests)/.+)?[^/]+\.py$
+        files: ^((esphome_ci|esphome|script|tests)/.+)?[^/]+\.py$
 
 -   repo: https://github.com/PyCQA/flake8
     rev: 6.1.0
@@ -27,7 +27,7 @@ repos:
         additional_dependencies:
           - flake8-docstrings==1.5.0
           - pydocstyle==5.1.1
-        files: ^(esphome|tests)/.+\.py$
+        files: ^(esphome_ci|esphome|tests)/.+\.py$
 
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.15.0

@@ -25,3 +25,5 @@ jobs:
         python -m pip install tox tox-gh-actions
     - name: Test with tox
       run: tox
+      env:
+        ESPHOME: ${{ matrix.esphome }}

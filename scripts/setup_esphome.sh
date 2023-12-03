@@ -1,7 +1,7 @@
 #!/bin/bash
 venv=".venv"
 PYTHON=python3
-ESPHOME_VERSION="2023.11.2"
+ESPHOME_VERSION="2023.11.6"
 
 if [ ! -d "${venv}" ]; then
     echo "Creating virtual environment at ${venv}"

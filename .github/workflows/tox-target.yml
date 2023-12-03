@@ -1,4 +1,4 @@
-name: ESPHome-2023.11.4
+name: ESPHome-target
 
 on:
   - push

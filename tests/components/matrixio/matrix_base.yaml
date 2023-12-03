@@ -5,7 +5,7 @@ external_components:
   #    ref: main
   - source:
       type: local
-      path: esphome/components/
+      path: ../../../esphome/components/
 
 esphome:
   name: matrixio-voice
@@ -18,10 +18,6 @@ esp32:
 
 
 logger:
-
-ota:
-
-api:
 
 spi:
   clk_pin:  GPIO32

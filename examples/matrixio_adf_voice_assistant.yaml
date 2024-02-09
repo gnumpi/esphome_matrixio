@@ -2,13 +2,10 @@ substitutions:
   node_name: matrixio-voice
 
 external_components:
-  #- source:
-  #    type: git
-  #    url: https://github.com/gnumpi/esphome_matrixio
-  #    ref: main
   - source:
-      type: local
-      path: ../esphome/components/
+      type: git
+      url: https://github.com/gnumpi/esphome_matrixio
+      ref: main
   - source:
       type: git
       url: https://github.com/gnumpi/esphome_audio

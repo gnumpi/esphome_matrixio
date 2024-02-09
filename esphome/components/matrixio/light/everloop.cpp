@@ -27,8 +27,6 @@ void Everloop::setup() {
 
 float Everloop::get_setup_priority() const { return setup_priority::HARDWARE; }
 
-float Everloop::get_setup_priority() const { return setup_priority::HARDWARE; }
-
 void Everloop::dump_config() {
   esph_log_config(TAG, "Matrixio Everloop:");
   esph_log_config(TAG, "  LEDs: %d", this->num_leds_);

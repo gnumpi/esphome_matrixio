@@ -15,7 +15,6 @@ const uint32_t NUMBER_OF_LEDS = 18;
 class Everloop : public light::AddressableLight, public matrixio::WishboneDevice {
 public:
     Everloop();
-    Everloop();
 
     int32_t size() const override { return this->num_leds_; }
 

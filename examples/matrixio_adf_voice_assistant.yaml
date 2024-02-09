@@ -1,0 +1,78 @@
+substitutions:
+  node_name: matrixio-voice
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/gnumpi/esphome_matrixio
+      ref: main
+  - source:
+      type: git
+      url: https://github.com/gnumpi/esphome_audio
+      ref: main
+    components: [ adf_pipeline ]
+
+esphome:
+  name: ${node_name}
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+
+packages:
+  wifi: !include common/wifi.yaml
+  el: !include common/everloop.yaml
+  va: !include common/voice_assistant.yaml
+
+logger:
+
+ota:
+
+api:
+
+spi:
+  clk_pin:  GPIO32
+  mosi_pin: GPIO33
+  miso_pin: GPIO21
+
+matrixio:
+  id: matrixio_dev
+  cs_pin: GPIO23
+
+adf_pipeline:
+  - platform: matrixio
+    id: adf_matrix_mics
+    type: source
+    sampling_rate: 16000
+
+  - platform: matrixio
+    id: adf_matrix_out
+    type: sink
+    audio_out: headphone
+    volume: 80
+
+
+microphone:
+  - platform: adf_pipeline
+    id: adf_matrixio_microphone
+    pipeline:
+      - adf_matrix_mics
+      - self
+
+media_player:
+  - platform: adf_pipeline
+    id: adf_media_player
+    name: matrixio_media_player
+    internal: false
+    pipeline:
+      - self
+      - adf_matrix_out
+
+voice_assistant:
+  id: va
+  microphone: adf_matrixio_microphone
+  media_player: adf_media_player
+  use_wake_word: true

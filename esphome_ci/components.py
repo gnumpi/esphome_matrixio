@@ -114,7 +114,6 @@ def get_components_from_repository(path: str) -> list[ExternalComponent]:
                 for comp in os.listdir(absPath)
                 if os.path.exists(os.path.join(absPath, comp, MANIFEST_FILE_NAME))
             ]
-
     return components
 
 

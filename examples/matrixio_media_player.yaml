@@ -1,3 +1,6 @@
+substitutions:
+  node_name: matrixio-voice
+
 external_components:
   #- source:
   #    type: git
@@ -6,7 +9,7 @@ external_components:
   - source:
       type: local
       path: ../esphome/components/
-  
+
   - source:
       type: git
       url: https://github.com/gnumpi/esphome_audio
@@ -14,7 +17,7 @@ external_components:
     components: [ adf_pipeline ]
 
 esphome:
-  name: matrixio-voice
+  name: ${node_name}
 
 esp32:
   board: esp32dev

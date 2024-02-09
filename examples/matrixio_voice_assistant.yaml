@@ -1,3 +1,6 @@
+substitutions:
+  node_name: matrixio-voice
+
 external_components:
   #- source:
   #    type: git
@@ -8,7 +11,7 @@ external_components:
       path: ../esphome/components/
 
 esphome:
-  name: matrixio-voice
+  name: ${node_name}
 
 esp32:
   board: esp32dev
@@ -57,4 +60,3 @@ voice_assistant:
   id: va
   microphone: matrixio_mic
   speaker: matrixio_speaker_hp
- 

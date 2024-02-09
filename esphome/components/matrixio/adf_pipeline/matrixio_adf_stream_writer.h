@@ -7,7 +7,7 @@
 #include "../matrixio.h"
 #include "../wishbone.h"
 
-#include "../../my_esp_adf/adf_audio_sinks.h"
+#include "esphome/components/adf_pipeline/adf_audio_sinks.h"
 
 #include <audio_element.h>
 #include <audio_pipeline.h>

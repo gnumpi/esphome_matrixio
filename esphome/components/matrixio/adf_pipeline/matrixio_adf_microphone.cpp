@@ -10,10 +10,8 @@
 namespace esphome {
 namespace matrixio {
 
-#define CHUNK_SIZE 512
 
 static const char *const TAG = "adf_matrixio_microphone";
-
 
 static QueueHandle_t irq_queue;
 
@@ -26,8 +24,7 @@ static void irq_handler(void *args) {
 static esp_err_t _matrixio_open(audio_element_handle_t self){
    xQueueReset(irq_queue);
    gpio_isr_handler_add(static_cast<gpio_num_t>(MICROPHONE_ARRAY_IRQ), irq_handler, NULL);
-  //this_writer->flush_fpga_fifo_();
-  //delay(10);
+   //this_writer->flush_fpga_fifo_();
    esp_err_t res = audio_element_set_input_timeout(self, 2000 / portTICK_RATE_MS);
    return res;
 }
@@ -39,30 +36,33 @@ static esp_err_t _matrixio_close(audio_element_handle_t self){
 
 static audio_element_err_t _matrixio_read(audio_element_handle_t self, char *buffer, int len, TickType_t ticks_to_wait, void *context)
 {
-    //return (audio_element_err_t) len;
     MatrixIOMicrophone *matMicrophone = (MatrixIOMicrophone *) audio_element_getdata(self);
-    size_t bytes_written = 0;
-    
+        
     gpio_num_t gpio;
     gpio = static_cast<gpio_num_t>(MICROPHONE_ARRAY_IRQ);
-
-    //if (xQueueReceive(irq_queue, &gpio, (100 / portTICK_PERIOD_MS) ) )
+    
+    const int to_read = std::min<int>(len, NUMBER_OF_SAMPLES * sizeof(uint16_t) );
     if (xQueueReceive(irq_queue, &gpio, ticks_to_wait))
     {
         memset( buffer, 0, len );
-        uint8_t* pt = reinterpret_cast<unsigned char *>(buffer);
-        matMicrophone->wb_read( pt, len );
-        return (audio_element_err_t) len;
+        uint8_t* pt = reinterpret_cast<unsigned char *>(matMicrophone->tmp_buffer_);
+        for( int ch =0 ; ch < MICROPHONE_CHANNELS ; ch ++ )
+        {
+          matMicrophone->wb_read( pt, NUMBER_OF_SAMPLES * sizeof(uint16_t) );
+          if( ch == 0 ){
+            memcpy(buffer, pt, to_read );
+          }
+        }
+        return (audio_element_err_t) to_read;
     }
 
     ESP_LOGW(TAG,"Buffer underrun.");
-    return (audio_element_err_t) bytes_written;
+    return (audio_element_err_t) 0;
 }
 
 static audio_element_err_t _adf_process(audio_element_handle_t self, char *in_buffer, int in_len)
 {
   //vTaskDelay( pdMS_TO_TICKS( 10 ) );
-  //return (audio_element_err_t) in_len;
   int r_size = audio_element_input(self, in_buffer, in_len);
   int w_size = 0;
   if (r_size == AEL_IO_TIMEOUT) {
@@ -75,8 +75,6 @@ static audio_element_err_t _adf_process(audio_element_handle_t self, char *in_bu
   }
   return (audio_element_err_t) w_size;
 }
-
-
 
 void MatrixIOMicrophone::setup() {
   set_sampling_rate(16000);
@@ -159,10 +157,10 @@ void MatrixIOMicrophone::init_adf_elements_(){
   cfg.task_prio = 0;
   cfg.task_core = 0;
   cfg.stack_in_ext = false;
-  cfg.out_rb_size = 4 * CHUNK_SIZE;
+  cfg.out_rb_size = 4 * NUMBER_OF_SAMPLES;
   cfg.multi_out_rb_num = 0;
   cfg.tag = "matrixio";
-  cfg.buffer_len = CHUNK_SIZE;
+  cfg.buffer_len = NUMBER_OF_SAMPLES * sizeof(int16_t);
 
   this->audio_raw_stream_ = audio_element_init(&cfg);
   audio_element_setdata(this->audio_raw_stream_, this);

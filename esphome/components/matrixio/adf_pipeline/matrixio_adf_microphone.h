@@ -7,7 +7,7 @@
 #include "../matrixio.h"
 #include "../wishbone.h"
 
-#include "../../my_esp_adf/adf_audio_sources.h"
+#include "esphome/components/adf_pipeline/adf_audio_sources.h"
 
 #include <audio_element.h>
 #include <audio_pipeline.h>
@@ -28,6 +28,7 @@ public:
   
   void set_sampling_rate(uint32_t sampling_rate);
   using WishboneDevice::wb_read;
+  uint16_t tmp_buffer_[NUMBER_OF_SAMPLES];
 protected:
   void init_adf_elements_() override;
 

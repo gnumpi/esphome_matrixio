@@ -1,0 +1,60 @@
+external_components:
+  #- source:
+  #    type: git
+  #    url: https://github.com/gnumpi/esphome_matrixio
+  #    ref: main
+  - source:
+      type: local
+      path: ../esphome/components/
+
+esphome:
+  name: matrixio-voice
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+packages:
+  wifi: !include common/wifi.yaml
+  el: !include common/everloop.yaml
+  va: !include common/voice_assistant.yaml
+
+logger:
+
+ota:
+
+api:
+
+spi:
+  clk_pin:  GPIO32
+  mosi_pin: GPIO33
+  miso_pin: GPIO21
+
+matrixio:
+  id: matrixio_dev
+  cs_pin: GPIO23
+
+light:
+  - platform: matrixio
+    name: everloop
+    id: everloop
+
+microphone:
+  - platform: matrixio
+    id: matrixio_mic
+
+speaker:
+  - platform: matrixio
+    id: matrixio_speaker_hp
+    # [headphone,speakers], default: headphone
+    audio_out: headphone
+    # 0..100, in percent, default: 80
+    volume: 90
+
+voice_assistant:
+  id: va
+  microphone: matrixio_mic
+  speaker: matrixio_speaker_hp
+ 

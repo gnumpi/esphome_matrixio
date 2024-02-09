@@ -1,5 +1,6 @@
 # ESPHome MatrixIO
-**Target: ESPHome-2023.11.6**
+**Target: ESPHome-2023.12.9**
+
 [![ESPHome-target](https://github.com/gnumpi/esphome_matrixio/actions/workflows/tox-target.yml/badge.svg)](https://github.com/gnumpi/esphome_matrixio/actions/workflows/tox-target.yml)
 [![ESPHome-latest](https://github.com/gnumpi/esphome_matrixio/actions/workflows/tox-latest.yml/badge.svg)](https://github.com/gnumpi/esphome_matrixio/actions/workflows/tox-latest.yml)
 
@@ -9,7 +10,10 @@ This custom component gives access to the LED-Strip (everloop), microphones and 
 
 It allows to use a Matrixio-Voice as a satellite for [Home Assistant](https://www.home-assistant.io/) [voice control](https://www.home-assistant.io/voice_control/).
 
-In this first version, only one microphone of the array is used. I might add a beamforming in the near future.
+Now it is also possible to use the Matrixio-Voice as a media player for Home Assistant.
+Configuration files can be found in the 'examples' folder.
+
+Right now, only one microphone of the array is used. I might add a beamforming in the future.
 
 The implementation is based on the example code which MATRIX Labs provides on their project page: https://github.com/matrix-io.
 

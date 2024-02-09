@@ -1,0 +1,60 @@
+external_components:
+  #- source:
+  #    type: git
+  #    url: https://github.com/gnumpi/esphome_matrixio
+  #    ref: main
+  - source:
+      type: local
+      path: ../esphome/components/
+  
+  - source:
+      type: git
+      url: https://github.com/gnumpi/esphome_audio
+      ref: main
+    components: [ adf_pipeline ]
+
+esphome:
+  name: matrixio-voice
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+packages:
+  el: !include common/everloop.yaml
+  wifi: !include common/wifi.yaml
+
+logger:
+
+ota:
+
+api:
+
+
+spi:
+  clk_pin:  GPIO32
+  mosi_pin: GPIO33
+  miso_pin: GPIO21
+
+matrixio:
+  id: matrixio_dev
+  cs_pin: GPIO23
+
+
+adf_pipeline:
+  - platform: matrixio
+    id: adf_matrix_out
+    type: sink
+    audio_out: headphone
+    volume: 80
+
+media_player:
+  - platform: adf_pipeline
+    id: adf_media_player
+    name: matrixio_media_player
+    internal: false
+    pipeline:
+      - self
+      - adf_matrix_out

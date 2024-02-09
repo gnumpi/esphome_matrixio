@@ -1,0 +1,37 @@
+light:
+  - platform: matrixio
+    name: everloop
+    id: everloop    
+    default_transition_length: 0s
+    
+    effects:
+      - pulse:
+          name: "Slow Pulse"
+          transition_length: 250ms
+          update_interval: 250ms
+          min_brightness: 50%
+          max_brightness: 100%
+      
+      - pulse:
+          name: "Fast Pulse"
+          transition_length: 100ms
+          update_interval: 100ms
+          min_brightness: 50%
+          max_brightness: 100%
+      
+      - addressable_lambda:
+          name: "Looping Dot"
+          update_interval: 100ms
+          lambda: |-
+            // it.size() - Number of LEDs
+            // it[num] - Access the LED at index num.
+            // Set the LED at num to the given r, g, b values
+            // it[num] = Color(r, g, b);
+            // Get the color at index num (Color instance)
+            // it[num].get();
+
+            // Example: Simple color wipe
+            for (int i = it.size() - 1; i > 0; i--) {
+              it[i] = it[i - 1].get();
+            }
+            it[0] = Color(0,0,.4,0);

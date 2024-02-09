@@ -15,19 +15,20 @@ const uint32_t NUMBER_OF_LEDS = 18;
 class Everloop : public light::AddressableLight, public matrixio::WishboneDevice {
 public:
     Everloop();
+    Everloop();
 
     int32_t size() const override { return this->num_leds_; }
 
     void setup();
     void dump_config();
-    float get_setup_priority() const override;    
+    float get_setup_priority() const override;
 
     light::LightTraits get_traits() override {
         auto traits = light::LightTraits();
         traits.set_supported_color_modes({light::ColorMode::RGB_WHITE});
         return traits;
     }
-    
+
     void write_state(light::LightState *state) override {
         if (this->is_failed())
             return;

@@ -15,7 +15,7 @@ class CompileTest:
         for cfgFile in os.listdir(self.comp.testsRoot):
             if not cfgFile.endswith(".yaml"):
                 continue
-            print( "Testing config: ", cfgFile )
+            print("Testing config: ", cfgFile)
             cfgFile = os.path.join(self.comp.testsRoot, cfgFile)
             try:
                 ret += run_esphome(["esphome", "-q", "compile", cfgFile])

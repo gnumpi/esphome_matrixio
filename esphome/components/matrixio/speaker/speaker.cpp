@@ -155,7 +155,7 @@ size_t Speaker::play(const uint8_t *data, size_t length) {
   }
 
   length = std::min(length, BUFFER_SIZE);
-  
+
   //hardcoded mono to stereo (send each sample twice)
   uint16_t* dst = buffer;
   const uint16_t* src = reinterpret_cast<const uint16_t*>(data);

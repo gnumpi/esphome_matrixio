@@ -102,7 +102,7 @@ class ExternalComponent:
 
 
 def get_components_from_repository(path: str) -> list[ExternalComponent]:
-    components : list[ExternalComponent] = []
+    components: list[ExternalComponent] = []
     for cPath in COMPONENT_ROOTS:
         absPath = os.path.join(path, cPath)
         if os.path.exists(absPath):

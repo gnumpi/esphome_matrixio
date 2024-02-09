@@ -5,7 +5,7 @@ namespace matrixio {
 
 static const char *const TAG = "matrixio_everloop";
   Everloop::Everloop() : matrixio::WishboneDevice(EVERLOOP_BASE_ADDRESS), num_leds_(NUMBER_OF_LEDS){
-} 
+}
 
 void Everloop::setup() {
   ExternalRAMAllocator<uint8_t> allocator(ExternalRAMAllocator<uint8_t>::ALLOW_FAILURE);
@@ -22,7 +22,7 @@ void Everloop::setup() {
     this->mark_failed();
     return;
   }
-  memset(this->buf_, 0, this->buffer_size_);  
+  memset(this->buf_, 0, this->buffer_size_);
 }
 
 float Everloop::get_setup_priority() const { return setup_priority::HARDWARE; }
@@ -34,12 +34,12 @@ void Everloop::dump_config() {
 
 light::ESPColorView Everloop::get_view_internal(int32_t index) const {
         size_t pos = index * 4;
-        return {this->buf_ + pos + 0, 
-                this->buf_ + pos + 1, 
-                this->buf_ + pos + 2, 
+        return {this->buf_ + pos + 0,
+                this->buf_ + pos + 1,
+                this->buf_ + pos + 2,
                 this->buf_ + pos + 3,
-                this->effect_data_ + index, 
-                &this->correction_ 
+                this->effect_data_ + index,
+                &this->correction_
               };
     }
 

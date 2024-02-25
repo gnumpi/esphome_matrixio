@@ -14,8 +14,7 @@ esp32:
   board: esp32dev
   framework:
     type: esp-idf
-    version: latest
-    platform_version: 6.5.0
+    version: recommended
 
 wifi:
   ssid: SSID

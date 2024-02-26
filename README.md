@@ -19,7 +19,7 @@ The implementation is based on the example code which MATRIX Labs provides on th
 
 
 ## Installation
-#### Prepare Rasperberry PI
+#### Prepare Raspberry PI
 Follow "Step 1: Raspberry Pi Setup" of  https://matrix-io.github.io/matrix-documentation/matrix-voice/esp32/
 
 Unfortunately, the packages of MATRIX Lab are now longer maintained. Checkout the repository of Kunal Bansal

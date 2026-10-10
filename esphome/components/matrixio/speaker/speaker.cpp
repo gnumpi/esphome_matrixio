@@ -37,7 +37,9 @@ void Speaker::dump_config(){
 void Speaker::start() { this->state_ = speaker::STATE_STARTING; }
 void Speaker::start_() {
   this->state_ = speaker::STATE_RUNNING;
-  xTaskCreate(Speaker::player_task, "speaker_task", 8192, (void *) this, 0, &this->player_task_handle_);
+  // Priority must be above the idle task (0). At 0 the task is starved by the main loop,
+  // the FPGA FIFO runs dry and playback stops mid-sentence.
+  xTaskCreate(Speaker::player_task, "speaker_task", 8192, (void *) this, 2, &this->player_task_handle_);
 }
 
 void Speaker::stop() {
